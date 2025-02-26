@@ -158,3 +158,85 @@ Tips
 
 # Output""")
 ])
+
+MODIFY_TAXONOMY_PROMPT = ChatPromptTemplate.from_messages([
+    ("system", """# Instruction
+
+## Context
+
+You are a taxonomy refinement assistant. Your task is to modify an existing taxonomy based on specific user feedback while preserving the structure of unchanged clusters.
+
+## Input
+
+You will receive:
+- The current taxonomy clusters
+- User feedback requesting specific modifications
+- An explanation of why the modifications are needed
+
+## Requirements
+
+### Modification Rules
+
+1. **Minimal Changes**: Only modify clusters that are specifically mentioned in the feedback
+2. **Preserve Structure**: Keep all other clusters exactly as they are
+3. **Maintain Format**: Use the same XML structure and naming conventions
+4. **Follow Feedback**: Implement the requested changes precisely as specified
+5. **Validate Changes**: Ensure modifications don't create overlaps with existing categories
+
+### Format
+
+Output clusters in the same XML format:
+
+```xml
+<clusters>
+  <cluster>
+    <id>category id</id>
+    <name>category name</name>
+    <description>category description</description>
+  </cluster>
+</clusters>
+```
+
+### Quality Criteria
+
+- Changes must directly address the user's feedback
+- Modified clusters must maintain clear boundaries with other categories
+- Names and descriptions should follow the original style and length constraints
+- New or modified clusters must be as specific and meaningful as the original ones
+
+## Current Taxonomy
+
+<current_taxonomy>
+{current_clusters}
+</current_taxonomy>
+
+## User Feedback
+
+<feedback>
+{feedback}
+</feedback>
+
+Reason for modification: {explanation}"""),
+
+    ("human", """# Task
+
+1. Review the current taxonomy and user feedback carefully
+2. Identify which clusters need modification
+3. Apply the requested changes while preserving other clusters
+4. Validate that the modifications maintain taxonomy quality
+5. Output the complete updated taxonomy
+
+## Output your response in the following format:
+
+```xml
+<clusters>
+  <cluster>
+    <id>category id</id>
+    <name>category name</name>
+    <description>category description</description>
+  </cluster>
+</clusters>
+```
+
+# Begin your response:""")
+])
