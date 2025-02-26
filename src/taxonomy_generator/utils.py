@@ -154,8 +154,6 @@ def process_runs(left: List[Doc], right: List[Union[Doc, Run]], sample: Optional
 
     if sample is not None and sample < len(converted):
         converted = random.sample(converted, sample)
-    else:
-        print(f"Processing all {len(converted)} documents.")
 
     return left + converted
 
@@ -205,8 +203,6 @@ def format_taxonomy(clusters: List[Dict[str, str]]) -> str:
         str: XML formatted taxonomy
     """
 
-    print("Clusters: ", clusters)
-
     xml = "<cluster_table>\n"
     for label in clusters:
         xml += "  <cluster>\n"
@@ -232,8 +228,6 @@ async def invoke_taxonomy_chain(
         
         previous_taxonomy = state.clusters[-1] if state.clusters else []
         cluster_table_xml = format_taxonomy(previous_taxonomy)
-
-        print("Previous Feedback: ", state.user_feedback)
 
         # Format feedback if it exists
         feedback = "No previous feedback provided."

@@ -20,8 +20,6 @@ def _setup_taxonomy_chain(configuration: Configuration, feedback: str):
         configuration.fast_llm,
     )
 
-    print("Taxonomy prompt: ", taxonomy_prompt)
-
     return (
         taxonomy_prompt
         | model

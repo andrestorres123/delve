@@ -1,7 +1,7 @@
 [project]
-name = "langgraph-starter-project"
-version = "0.0.1"
-description = "Starter template for making a custom agent in LangGraph."
+name = "delve-taxonomy-generator"
+version = "0.0.4"
+description = "A taxonomy generator for unstructured data."
 authors = [
     { name = "Andres Torres", email = "torres.andres@gmail.com" },
 ]
@@ -19,7 +19,6 @@ dependencies = [
     "tavily-python>=0.4.0",
 ]
 
-
 [project.optional-dependencies]
 dev = ["mypy>=1.11.1", "ruff>=0.6.1"]
 
@@ -27,12 +26,8 @@ dev = ["mypy>=1.11.1", "ruff>=0.6.1"]
 requires = ["setuptools>=73.0.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
-[tool.setuptools]
-packages = ["langgraph.templates.taxonomy_generator", "taxonomy_generator"]
-[tool.setuptools.package-dir]
-"langgraph.templates.taxonomy_generator" = "src/taxonomy_generator"
-"taxonomy_generator" = "src/taxonomy_generator"
-
+[tool.setuptools.packages.find]
+where = ["src"]
 
 [tool.setuptools.package-data]
 "*" = ["py.typed"]

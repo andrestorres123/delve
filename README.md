@@ -1,241 +1,104 @@
-# LangGraph ReAct Agent Template
+# TnT-LLM: Text Mining at Scale with Large Language Models 🚀
 
-[![CI](https://github.com/langchain-ai/react-agent/actions/workflows/unit-tests.yml/badge.svg)](https://github.com/langchain-ai/react-agent/actions/workflows/unit-tests.yml)
-[![Integration Tests](https://github.com/langchain-ai/react-agent/actions/workflows/integration-tests.yml/badge.svg)](https://github.com/langchain-ai/react-agent/actions/workflows/integration-tests.yml)
-[![Open in - LangGraph Studio](https://img.shields.io/badge/Open_in-LangGraph_Studio-00324d.svg?logo=data:image/svg%2bxml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4NS4zMzMiIGhlaWdodD0iODUuMzMzIiB2ZXJzaW9uPSIxLjAiIHZpZXdCb3g9IjAgMCA2NCA2NCI+PHBhdGggZD0iTTEzIDcuOGMtNi4zIDMuMS03LjEgNi4zLTYuOCAyNS43LjQgMjQuNi4zIDI0LjUgMjUuOSAyNC41QzU3LjUgNTggNTggNTcuNSA1OCAzMi4zIDU4IDcuMyA1Ni43IDYgMzIgNmMtMTIuOCAwLTE2LjEuMy0xOSAxLjhtMzcuNiAxNi42YzIuOCAyLjggMy40IDQuMiAzLjQgNy42cy0uNiA0LjgtMy40IDcuNkw0Ny4yIDQzSDE2LjhsLTMuNC0zLjRjLTQuOC00LjgtNC44LTEwLjQgMC0xNS4ybDMuNC0zLjRoMzAuNHoiLz48cGF0aCBkPSJNMTguOSAyNS42Yy0xLjEgMS4zLTEgMS43LjQgMi41LjkuNiAxLjcgMS44IDEuNyAyLjcgMCAxIC43IDIuOCAxLjYgNC4xIDEuNCAxLjkgMS40IDIuNS4zIDMuMi0xIC42LS42LjkgMS40LjkgMS41IDAgMi43LS41IDIuNy0xIDAtLjYgMS4xLS44IDIuNi0uNGwyLjYuNy0xLjgtMi45Yy01LjktOS4zLTkuNC0xMi4zLTExLjUtOS44TTM5IDI2YzAgMS4xLS45IDIuNS0yIDMuMi0yLjQgMS41LTIuNiAzLjQtLjUgNC4yLjguMyAyIDEuNyAyLjUgMy4xLjYgMS41IDEuNCAyLjMgMiAyIDEuNS0uOSAxLjItMy41LS40LTMuNS0yLjEgMC0yLjgtMi44LS44LTMuMyAxLjYtLjQgMS42LS41IDAtLjYtMS4xLS4xLTEuNS0uNi0xLjItMS42LjctMS43IDMuMy0yLjEgMy41LS41LjEuNS4yIDEuNi4zIDIuMiAwIC43LjkgMS40IDEuOSAxLjYgMi4xLjQgMi4zLTIuMy4yLTMuMi0uOC0uMy0yLTEuNy0yLjUtMy4xLTEuMS0zLTMtMy4zLTMtLjUiLz48L3N2Zz4=)](https://langgraph-studio.vercel.app/templates/open?githubUrl=https://github.com/langchain-ai/react-agent)
+## Overview
 
-This template showcases a [ReAct agent](https://arxiv.org/abs/2210.03629) implemented using [LangGraph](https://github.com/langchain-ai/langgraph), designed for [LangGraph Studio](https://github.com/langchain-ai/langgraph-studio). ReAct agents are uncomplicated, prototypical agents that can be flexibly extended to many tools.
+This project implements TnT-LLM, a framework designed for large-scale text mining using Large Language Models (LLMs). TnT-LLM automates two core tasks: label taxonomy generation and text classification, both of which traditionally require significant manual effort and domain expertise.
 
-![Graph view in LangGraph studio UI](./static/studio_ui.png)
+The framework consists of two phases:
 
-The core logic, defined in `src/react_agent/graph.py`, demonstrates a flexible ReAct agent that iteratively reasons about user queries and executes actions, showcasing the power of this approach for complex problem-solving tasks.
+**Taxonomy Generation**: A zero-shot, multi-stage process where LLMs automatically generate and refine a label taxonomy based on the input text data.
 
-## What it does
+**Text Classification**: LLMs then generate pseudo-labels to train lightweight, scalable classifiers that can be deployed efficiently at scale.
 
-The ReAct agent:
+TnT-LLM combines the accuracy of LLMs with the scalability of traditional classifiers, making it highly efficient for real-world applications such as conversational AI analysis. This project uses the framework to extract insights and organize unstructured text data with minimal human intervention.
 
-1. Takes a user **query** as input
-2. Reasons about the query and decides on an action
-3. Executes the chosen action using available tools
-4. Observes the result of the action
-5. Repeats steps 2-4 until it can provide a final answer
+For more detailed information, you can refer to the [original paper](https://arxiv.org/abs/2403.12173).
 
-By default, it's set up with a basic set of tools, but can be easily extended with custom tools to suit various use cases.
+![TNT LLM Diagram](images/tnt_llm.png)
 
-## Getting Started
+### 🔥 Why This Matters
 
-Assuming you have already [installed LangGraph Studio](https://github.com/langchain-ai/langgraph-studio?tab=readme-ov-file#download), to set up:
+Traditional text mining approaches often face two major challenges:
+- **High Costs and Time Involvement**: Most existing methods rely heavily on **human annotators** and **domain experts** to manually generate taxonomies and classify text data. This process is slow, expensive, and prone to errors, making it difficult to scale for large datasets.
+- **Limitations of Unsupervised Methods**: Unsupervised techniques like text clustering and topic modeling, while faster, lack the necessary **interpretability** and **guidance** to produce meaningful and actionable results. These methods often result in vague groupings that require manual review and adjustment.
 
-1. Create a `.env` file.
+**TnT-LLM** changes the game by leveraging the power of **Large Language Models** in a novel way:
+- It **automates** both taxonomy creation and text classification, significantly reducing human involvement while maintaining accuracy.
+- The framework uses a **zero-shot approach**, allowing LLMs to generate and refine label taxonomies without prior training, making it adaptable to a wide variety of use cases.
+- By using LLMs to generate **pseudo-labels**, TnT-LLM allows lightweight classifiers to be trained and deployed at scale, offering a **balance between scalability and accuracy** that traditional methods struggle to achieve.
 
-```bash
-cp .env.example .env
-```
+This approach unlocks the ability to apply LLMs effectively to large-scale text mining problems with minimal overhead, transforming how we extract insights from unstructured text data.
 
-2. Define required API keys in your `.env` file.
 
-The primary [search tool](./src/react_agent/tools.py) [^1] used is [Tavily](https://tavily.com/). Create an API key [here](https://app.tavily.com/sign-in).
+### 🔍 Key Features:
+- **Automated Taxonomy Generation**: Quickly and accurately create label taxonomies without the need for human annotators or domain experts.
+- **LLM-Augmented Text Classification**: Use LLMs to generate pseudo-labels, enabling lightweight classifiers to handle large-scale text data efficiently.
+- **Scalable Processing of Large Text Corpora**: Designed to handle vast amounts of data, ensuring performance and accuracy even at scale.
+- **Optimized for Accuracy and Efficiency**: Balances the powerful capabilities of LLMs with the scalability and transparency of traditional classifiers, delivering high performance without compromising speed.
 
-<!--
-Setup instruction auto-generated by `langgraph template lock`. DO NOT EDIT MANUALLY.
--->
 
-### Setup Model
+## 🌟 Use Cases
 
-The defaults values for `model` are shown below:
+TnT-LLM enables powerful and scalable applications in text mining and analysis:
 
-```yaml
-model: anthropic/claude-3-5-sonnet-20240620
-```
+1. **User Intent Detection**: Leverage TnT-LLM’s zero-shot, multi-stage taxonomy generation to identify user intent in conversations without extensive domain-specific training.
+2. **Content Categorization**: Automatically generate and refine taxonomies for organizing large-scale document collections, ensuring scalability and accuracy.
+3. **Trend and Theme Detection**: Detect emerging trends with greater precision than traditional clustering, thanks to LLM-augmented classification.
+4. **Academic Research Assistance**: Streamline literature reviews by automatically labeling and categorizing academic papers using LLM-generated taxonomies.
+5. **Customer Insight Generation**: Extract structured insights from customer interactions, enabling deeper understanding for improving product development and strategy.
 
-Follow the instructions below to get set up, or pick one of the additional options.
+## 🔨 Usage
 
-#### Anthropic
-
-To use Anthropic's chat models:
-
-1. Sign up for an [Anthropic API key](https://console.anthropic.com/) if you haven't already.
-2. Once you have your API key, add it to your `.env` file:
+1. **Installation**
 
 ```
-ANTHROPIC_API_KEY=your-api-key
-```
-#### OpenAI
-
-To use OpenAI's chat models:
-
-1. Sign up for an [OpenAI API key](https://platform.openai.com/signup).
-2. Once you have your API key, add it to your `.env` file:
-```
-OPENAI_API_KEY=your-api-key
+pip install delve-taxonomy-generator
 ```
 
+2. **API Keys Setup**
+Delve Taxonomy Generator requires the following API key to be set as an environment variable:
+   * `ANTHROPIC_API_KEY`: For processing and generating taxonomies from unstructured data
+
+You can set this using environment variables:
+
+```
+export ANTHROPIC_API_KEY="your-key-here"
+```
+
+3. **Basic Usage**
+
+```python
+from taxonomy_generator.graph import graph
+
+# Generate taxonomy from unstructured data
+result = await graph.ainvoke({
+    "project_name": "YOUR_PROJECT_NAME",
+    "org_id": "YOUR_LANGSMITH_API_KEY",
+    "days": 3  # Number of days to analyze
+})
+
+# Access the taxonomy results
+documents = result['documents']
+clusters = result["clusters"]
+messages = result['messages']
+```
+
+4. **Output** The system generates three main output properties:
+
+   * **messages**: Contains a friendly message with the taxonomy information pretty-printed in a human-readable format. This is useful for quick inspection and sharing results with non-technical stakeholders.
+   
+   * **clusters**: An array of array representing all cluster iterations. Each cluster has an `id`, `name`, and `description` that categorizes related content. The last cluster in the array is the final version used for analysis.
+   
+   * **documents**: The full collection of labeled documents with rich metadata including:
+     - `id`: Unique document identifier
+     - `content`: The actual document text
+     - `category`: The assigned taxonomy category
+     - `summary`: A concise summary of the document content
+     - `explanation`: Detailed reasoning behind the categorization
 
 
+## 🙏 Acknowledgements
 
+This project is based on the research paper "Text Mining at Scale with Large Language Models" by Mengting Wan, Tara Safavi, Sujay Kumar Jauhar, and others. We extend our gratitude to the authors for their groundbreaking work on LLM-powered taxonomy generation and classification.
 
-<!--
-End setup instructions
--->
-
-
-3. Customize whatever you'd like in the code.
-4. Open the folder LangGraph Studio!
-
-## How to customize
-
-1. **Add new tools**: Extend the agent's capabilities by adding new tools in [tools.py](./src/react_agent/tools.py). These can be any Python functions that perform specific tasks.
-2. **Select a different model**: We default to Anthropic's Claude 3 Sonnet. You can select a compatible chat model using `provider/model-name` via configuration. Example: `openai/gpt-4-turbo-preview`.
-3. **Customize the prompt**: We provide a default system prompt in [prompts.py](./src/react_agent/prompts.py). You can easily update this via configuration in the studio.
-
-You can also quickly extend this template by:
-
-- Modifying the agent's reasoning process in [graph.py](./src/react_agent/graph.py).
-- Adjusting the ReAct loop or adding additional steps to the agent's decision-making process.
-
-## Development
-
-While iterating on your graph, you can edit past state and rerun your app from past states to debug specific nodes. Local changes will be automatically applied via hot reload. Try adding an interrupt before the agent calls tools, updating the default system message in `src/react_agent/configuration.py` to take on a persona, or adding additional nodes and edges!
-
-Follow up requests will be appended to the same thread. You can create an entirely new thread, clearing previous history, using the `+` button in the top right.
-
-You can find the latest (under construction) docs on [LangGraph](https://github.com/langchain-ai/langgraph) here, including examples and other references. Using those guides can help you pick the right patterns to adapt here for your use case.
-
-LangGraph Studio also integrates with [LangSmith](https://smith.langchain.com/) for more in-depth tracing and collaboration with teammates.
-
-[^1]: https://python.langchain.com/docs/concepts/#tools
-
-<!--
-Configuration auto-generated by `langgraph template lock`. DO NOT EDIT MANUALLY.
-{
-  "config_schemas": {
-    "agent": {
-      "type": "object",
-      "properties": {
-        "model": {
-          "type": "string",
-          "default": "anthropic/claude-3-5-sonnet-20240620",
-          "description": "The name of the language model to use for the agent's main interactions. Should be in the form: provider/model-name.",
-          "environment": [
-            {
-              "value": "anthropic/claude-1.2",
-              "variables": "ANTHROPIC_API_KEY"
-            },
-            {
-              "value": "anthropic/claude-2.0",
-              "variables": "ANTHROPIC_API_KEY"
-            },
-            {
-              "value": "anthropic/claude-2.1",
-              "variables": "ANTHROPIC_API_KEY"
-            },
-            {
-              "value": "anthropic/claude-3-5-sonnet-20240620",
-              "variables": "ANTHROPIC_API_KEY"
-            },
-            {
-              "value": "anthropic/claude-3-haiku-20240307",
-              "variables": "ANTHROPIC_API_KEY"
-            },
-            {
-              "value": "anthropic/claude-3-opus-20240229",
-              "variables": "ANTHROPIC_API_KEY"
-            },
-            {
-              "value": "anthropic/claude-3-sonnet-20240229",
-              "variables": "ANTHROPIC_API_KEY"
-            },
-            {
-              "value": "anthropic/claude-instant-1.2",
-              "variables": "ANTHROPIC_API_KEY"
-            },
-            {
-              "value": "openai/gpt-3.5-turbo",
-              "variables": "OPENAI_API_KEY"
-            },
-            {
-              "value": "openai/gpt-3.5-turbo-0125",
-              "variables": "OPENAI_API_KEY"
-            },
-            {
-              "value": "openai/gpt-3.5-turbo-0301",
-              "variables": "OPENAI_API_KEY"
-            },
-            {
-              "value": "openai/gpt-3.5-turbo-0613",
-              "variables": "OPENAI_API_KEY"
-            },
-            {
-              "value": "openai/gpt-3.5-turbo-1106",
-              "variables": "OPENAI_API_KEY"
-            },
-            {
-              "value": "openai/gpt-3.5-turbo-16k",
-              "variables": "OPENAI_API_KEY"
-            },
-            {
-              "value": "openai/gpt-3.5-turbo-16k-0613",
-              "variables": "OPENAI_API_KEY"
-            },
-            {
-              "value": "openai/gpt-4",
-              "variables": "OPENAI_API_KEY"
-            },
-            {
-              "value": "openai/gpt-4-0125-preview",
-              "variables": "OPENAI_API_KEY"
-            },
-            {
-              "value": "openai/gpt-4-0314",
-              "variables": "OPENAI_API_KEY"
-            },
-            {
-              "value": "openai/gpt-4-0613",
-              "variables": "OPENAI_API_KEY"
-            },
-            {
-              "value": "openai/gpt-4-1106-preview",
-              "variables": "OPENAI_API_KEY"
-            },
-            {
-              "value": "openai/gpt-4-32k",
-              "variables": "OPENAI_API_KEY"
-            },
-            {
-              "value": "openai/gpt-4-32k-0314",
-              "variables": "OPENAI_API_KEY"
-            },
-            {
-              "value": "openai/gpt-4-32k-0613",
-              "variables": "OPENAI_API_KEY"
-            },
-            {
-              "value": "openai/gpt-4-turbo",
-              "variables": "OPENAI_API_KEY"
-            },
-            {
-              "value": "openai/gpt-4-turbo-preview",
-              "variables": "OPENAI_API_KEY"
-            },
-            {
-              "value": "openai/gpt-4-vision-preview",
-              "variables": "OPENAI_API_KEY"
-            },
-            {
-              "value": "openai/gpt-4o",
-              "variables": "OPENAI_API_KEY"
-            },
-            {
-              "value": "openai/gpt-4o-mini",
-              "variables": "OPENAI_API_KEY"
-            }
-          ]
-        }
-      },
-      "environment": [
-        "TAVILY_API_KEY"
-      ]
-    }
-  }
-}
--->
+Special thanks to [Will Fu-Hinthorn](https://github.com/hinthornw) for his collaboration and invaluable help in developing this project.

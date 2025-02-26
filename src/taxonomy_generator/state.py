@@ -47,6 +47,8 @@ class OutputState:
     """Defines the output state for the agent, representing the interaction history."""
     messages: Annotated[Sequence[AnyMessage], add_messages] = field(default_factory=list)
     clusters: Annotated[List[List[Dict]], operator.add] = field(default_factory=list)
+    documents: List[Doc] = field(default_factory=list)
+
 
 @dataclass
 class State(InputState, OutputState):
