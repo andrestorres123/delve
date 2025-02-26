@@ -83,7 +83,6 @@ def _reduce_summaries(combined: Dict[str, Any]) -> Dict[str, List[Dict[str, Any]
 async def generate_summaries(
     state: State,
     config: RunnableConfig,
-    model_name: str = "claude-3-haiku-20240307",
 ) -> dict:
     """Generate summaries for a collection of documents."""
 

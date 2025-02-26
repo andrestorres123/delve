@@ -40,7 +40,6 @@ class InputState:
     project_name: str = ""
     org_id: str = ""  # LangSmith API Key
     days: int = 3  # Number of days to look back for runs
-    messages: Annotated[Sequence[AnyMessage], add_messages] = field(default_factory=list)
 
 
 @dataclass

@@ -2,26 +2,6 @@
 
 from langchain_core.prompts import ChatPromptTemplate
 
-FEEDBACK_PROMPT = ChatPromptTemplate.from_messages([
-    ("system", """You are an AI assistant that analyzes user feedback about taxonomy clusters. Your task is to determine whether the user wants to:
-1. Continue with the current taxonomy and proceed to document labeling ("continue")
-2. Modify the existing taxonomy based on their feedback ("modify")
-
-You should output:
-- A decision ("continue" or "modify")
-- A brief explanation of why you made this decision
-- Any specific feedback provided by the user (if they gave any)
-
-Guidelines for analysis:
-- Look for explicit approval words like "yes", "approve", "good", "continue"
-- Look for modification requests like "change", "modify", "update", "revise"
-- Consider the overall sentiment and specific suggestions in the feedback
-- If there's any criticism or suggested changes, choose "modify"
-- Only choose "continue" if the user clearly indicates approval"""),
-    
-    ("human", "Please analyze this user feedback about the taxonomy clusters: {input}"),
-])
-
 LABELER_PROMPT = ChatPromptTemplate.from_messages([
     ("system", """Your task is to use the provided taxonomy to categorize the overall topic or intent of a conversation between a human and an AI assistant.  
 

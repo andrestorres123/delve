@@ -70,7 +70,7 @@ def _format_results(docs: List[Doc]) -> str:
     result = " Document Classification Results:\n\n"
     for doc in docs:
         # Get first 200 chars of content, clean it up
-        preview = doc.content[:200].replace('\n', ' ').strip()
+        preview = doc.content[:400].replace('\n', ' ').strip()
         if len(doc.content) > 200:
             preview += "..."
             
